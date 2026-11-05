@@ -1,0 +1,9 @@
+node_modules/
+.next/
+vendor/
+.env
+.env.local
+.env.docker
+*.sqlite
+storage/logs/
+*.tsbuildinfo

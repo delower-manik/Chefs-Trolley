@@ -1,0 +1,45 @@
+# Production overlay:  docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+# - no source bind-mounts (code is baked into the image), no exposed DB port
+# - secrets come from backend/.env.docker and the shell environment, never from this file
+# NOT run in the authoring sandbox (no Docker daemon). Put TLS in front (Caddy/Traefik/cloud LB) — nginx here speaks plain HTTP.
+
+x-api-prod: &api-prod
+  volumes: !override
+    - storage:/var/www/html/storage
+  restart: unless-stopped
+
+services:
+  db:
+    environment:
+      MYSQL_PASSWORD: ${DB_PASSWORD:?set DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:?set DB_ROOT_PASSWORD}
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-p${DB_ROOT_PASSWORD}"]
+    ports: !reset []
+    restart: unless-stopped
+  redis:
+    restart: unless-stopped
+  api:
+    <<: *api-prod
+    environment:
+      DB_HOST: db
+      DB_PASSWORD: ${DB_PASSWORD:?set DB_PASSWORD}
+      REDIS_HOST: redis
+  queue:
+    <<: *api-prod
+    environment:
+      DB_HOST: db
+      DB_PASSWORD: ${DB_PASSWORD:?set DB_PASSWORD}
+      REDIS_HOST: redis
+  scheduler:
+    <<: *api-prod
+    environment:
+      DB_HOST: db
+      DB_PASSWORD: ${DB_PASSWORD:?set DB_PASSWORD}
+      REDIS_HOST: redis
+  web:
+    build:
+      args:
+        NEXT_PUBLIC_API_BASE_URL: ${PUBLIC_URL:?set PUBLIC_URL, e.g. https://pos.example.com}/api/v1
+  nginx:
+    restart: unless-stopped

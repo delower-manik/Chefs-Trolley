@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { --brand: 194 65 12; }
+html { -webkit-text-size-adjust: 100%; }
+body { @apply bg-paper text-ink antialiased; font-family: ui-sans-serif, system-ui, "Segoe UI", "Noto Sans Bengali", Roboto, sans-serif; overscroll-behavior-y: contain; }
+
+@layer components {
+  .btn { @apply inline-flex min-h-[52px] w-full items-center justify-center rounded-2xl bg-brand px-5 text-base font-semibold text-white transition active:opacity-80 disabled:cursor-not-allowed disabled:opacity-50; }
+  .btn-ghost { @apply inline-flex min-h-[52px] w-full items-center justify-center rounded-2xl border border-line bg-white px-5 text-base font-semibold text-ink transition active:bg-black/5 disabled:opacity-50; }
+  .btn-danger { @apply inline-flex min-h-[52px] w-full items-center justify-center rounded-2xl border border-red-300 bg-white px-5 text-base font-semibold text-red-700 transition active:bg-red-50 disabled:opacity-50; }
+  .field { @apply min-h-[52px] w-full rounded-2xl border border-line bg-white px-4 text-base placeholder:text-soft focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/30; }
+  .card { @apply rounded-2xl border border-line bg-white p-4 shadow-sm; }
+}

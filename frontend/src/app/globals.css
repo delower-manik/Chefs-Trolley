@@ -1,0 +1,96 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Theme tokens (R G B). Dark is the default; light applies when <html data-theme="light"> is set. */
+:root {
+  --c-bg: 10 10 11;
+  --c-surface: 26 26 26;
+  --c-surface-raised: 20 20 21;
+  --c-surface-hover: 35 35 36;
+  --c-border: 39 39 42;
+  --c-primary: 230 0 0;
+  --c-primary-hover: 205 0 0;
+  --c-primary-fg: 255 99 99;
+  --c-primary-muted: 58 10 10;
+  --c-strong: 255 255 255;
+  --c-text: 244 244 245;
+  --c-text-secondary: 176 176 184;
+  --c-text-muted: 150 150 158;
+  --c-success: 22 163 74;
+  --c-warning: 245 165 36;
+  --c-danger: 225 29 72;
+  --card-shadow-alpha: 0.35;
+}
+:root[data-theme="light"] {
+  --c-bg: 246 246 247;
+  --c-surface: 255 255 255;
+  --c-surface-raised: 244 244 246;
+  --c-surface-hover: 237 237 240;
+  --c-border: 224 224 228;
+  --c-primary: 175 0 0;
+  --c-primary-hover: 150 0 0;
+  --c-primary-fg: 175 0 0;
+  --c-primary-muted: 254 226 226;
+  --c-strong: 24 24 27;
+  --c-text: 39 39 42;
+  --c-text-secondary: 82 82 91;
+  --c-text-muted: 100 100 110;
+  --c-success: 22 101 52;
+  --c-warning: 146 64 14;
+  --c-danger: 190 18 60;
+  --card-shadow-alpha: 0.08;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+  html[data-theme="light"] {
+    color-scheme: light;
+  }
+  body {
+    @apply bg-bg text-text-primary font-body antialiased;
+  }
+  h1, h2, h3, h4 {
+    @apply font-headline;
+  }
+  /* Never remove focus outlines -- keyboard accessibility is non-negotiable. */
+  :focus-visible {
+    outline: 2px solid theme("colors.primary.DEFAULT");
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-surface-hover rounded-full;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-surface border border-border rounded-card shadow-card;
+  }
+  .btn-primary {
+    @apply bg-primary hover:bg-primary-hover text-white rounded-lg px-4 py-2.5 font-semibold text-sm
+      transition-colors disabled:opacity-50 disabled:pointer-events-none;
+  }
+  .btn-secondary {
+    @apply bg-surface-hover hover:bg-border text-text-primary rounded-lg px-4 py-2.5 font-semibold text-sm
+      transition-colors border border-border;
+  }
+  .input-field {
+    @apply w-full bg-surface-raised border border-border rounded-lg px-3 py-2.5 text-sm text-text-primary
+      placeholder:text-text-muted focus:border-primary outline-none transition-colors;
+  }
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium;
+  }
+}

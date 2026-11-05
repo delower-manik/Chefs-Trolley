@@ -1,0 +1,12 @@
+**/node_modules
+**/.next
+**/.git
+backend/vendor
+backend/.env
+backend/.env.docker
+backend/storage/logs/*
+backend/storage/framework/cache/*
+backend/storage/app/backups/*
+frontend/public/vendor
+**/*.md
+!backend/docs/**

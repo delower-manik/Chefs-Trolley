@@ -1,0 +1,30 @@
+export type Site = {
+  siteName: string; tagline: string | null; primaryColor: string | null; logoUrl: string | null; faviconUrl: string | null;
+  contactPhone: string | null; contactEmail: string | null; address: string | null; socialFacebook: string | null; socialInstagram: string | null;
+  locale: "en" | "bn"; timezone: string; currency: { code: string; symbol: string; decimals: number };
+  ordering: { enabled: boolean; cod: boolean; pickup: boolean; minOrder: number; online: { key: string; label: string }[] };
+  features: { reservations: boolean };
+};
+export type Branch = { id: string; name: string; address: string | null; phone: string | null };
+export type Modifier = { id: string; name: string; price: number };
+export type ModifierGroup = { id: string; name: string; required: boolean; min: number; max: number; modifiers: Modifier[] };
+export type MenuItem = { id: string; name: string; slug: string; description: string | null; price: number; imageUrl: string | null; modifierGroups: ModifierGroup[] };
+export type MenuCategory = { id: string; name: string; slug: string; description: string | null; items: MenuItem[] };
+export type Combo = { id: string; name: string; description: string | null; price: number; includes: { name: string; quantity: number }[] };
+export type Zone = { id: string; name: string; fee: number };
+export type Menu = { branch: Branch; categories: MenuCategory[]; combos: Combo[]; deliveryZones: Zone[] };
+export type Img = { url: string; alt: string | null };
+export type Section = { type: "hero" | "text" | "image" | "menu_highlight" | "gallery" | "cta"; title?: string; body?: string; image?: Img; images?: Img[] };
+export type Page = { slug: string; title: string; sections: Section[]; metaTitle: string | null; metaDescription: string | null; ogImageUrl: string | null; updatedAt: string };
+export type Customer = { id: string; name: string; phone: string; email: string | null; address: string | null; locale: string | null; loyaltyPoints: number };
+export type OrderStage = "received" | "preparing" | "ready" | "on_the_way" | "done" | "cancelled";
+export type PaymentInfo = { id: string; gateway: string; status: string; redirectUrl: string | null; amount: number } | { error: string } | null;
+export type WebOrder = {
+  id: string; code: string; status: string; stage: OrderStage; fulfilment: "delivery" | "pickup"; createdAt: string;
+  items: { name: string; quantity: number; total: number; modifiers: { name: string; price: number }[]; notes: string | null }[];
+  subtotal: number; tax: number; discount: number; deliveryFee: number; total: number; paid: number; balanceDue: number; paymentState: string;
+  delivery: { address: string | null; status: string; riderName: string | null } | null; payment?: PaymentInfo;
+};
+export type Address = { id: string; label: string; address: string; isDefault: boolean };
+export type Reservation = { id: string; branchId: string; partySize: number; reservedFor: string; status: string; notes: string | null };
+export type CartLine = { key: string; itemId?: string; comboId?: string; name: string; unitPrice: number; quantity: number; modifierIds: string[]; modifierNames: string[]; notes?: string };

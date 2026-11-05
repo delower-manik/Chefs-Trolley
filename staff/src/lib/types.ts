@@ -1,0 +1,14 @@
+export type Tokens = { accessToken: string; refreshToken: string; expiresAt: string };
+export type LoginResult = { user: { name: string }; tokens: Tokens } | { mfaRequired: true; challenge: string };
+export type Me = { name: string; permissions: string[] };
+export type Employee = { id: string; name: string; roleTitle: string; branchId: string; today: { status: string | null; checkInTime: string | null; checkOutTime: string | null }; clockedIn: boolean };
+export type Modifier = { id: string; name: string; price: number };
+export type ModGroup = { id: string; name: string; isRequired: boolean; minSelect: number | null; maxSelect: number | null; modifiers: Modifier[] };
+export type CatalogItem = { id: string; categoryId: string | null; name: string; description: string | null; basePrice: number; modifierGroups: ModGroup[] };
+export type Table = { id: string; label: string; capacity: number | null; status: string; openOrder: { id: string; code: string; grandTotal: number } | null };
+export type Catalog = { categories: { id: string; name: string }[]; items: CatalogItem[]; tables: Table[] };
+export type OrderLine = { id: string; name: string; quantity: number; unitPrice: number; total: number; modifiers: unknown[]; notes: string | null; kitchenState: string };
+export type Order = { id: string; code: string; source: string; diningTableId: string | null; items: OrderLine[]; grandTotal: number; balanceDue: number; kitchenState: string; status: string; createdAt: string };
+export type Ticket = { id: string; code: string; source: string; tableLabel: string | null; kitchenState: string; status: string; createdAt: string; items: { id: string; name: string; quantity: number; modifiers: unknown[]; notes: string | null; comboName: string | null; kitchenState: string; stationId: string | null; stationName: string | null }[] };
+export type Station = { id: string; name: string };
+export type Day = { date: string; status: string; checkInTime: string | null; checkOutTime: string | null };

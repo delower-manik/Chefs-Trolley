@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { --brand: 194 65 12; }
+html { -webkit-text-size-adjust: 100%; }
+body { @apply bg-paper text-ink antialiased; font-family: ui-sans-serif, system-ui, "Segoe UI", "Noto Sans Bengali", "Kalpurush", Roboto, sans-serif; }
+h1, h2, h3 { font-family: ui-serif, Georgia, "Noto Serif Bengali", serif; letter-spacing: -0.01em; }
+
+@layer components {
+  .btn { @apply inline-flex min-h-[44px] items-center justify-center rounded-full bg-brand px-5 text-sm font-semibold text-white transition hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-not-allowed disabled:opacity-50; }
+  .btn-ghost { @apply inline-flex min-h-[44px] items-center justify-center rounded-full border border-line bg-white px-5 text-sm font-semibold text-ink transition hover:bg-black/5 disabled:opacity-50; }
+  .field { @apply min-h-[44px] w-full rounded-xl border border-line bg-white px-3 text-base text-ink placeholder:text-soft focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/30; }
+  .card { @apply rounded-2xl border border-line bg-white p-4 shadow-sm; }
+  .label { @apply mb-1 block text-sm font-medium text-ink; }
+  .wrap { @apply mx-auto w-full max-w-5xl px-4; }
+}
